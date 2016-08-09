@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wikipath</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <style>
+            input {
+                margin: 10px;
+                padding: 1px;
+                font-family: monospace;
+                font-size: 10pt;
+            }
+            
+            .source {
+                border: 2px solid green;
+            }
+            
+            .target {
+                border: 2px solid red;
+            }
+            
+            button {
+                margin: 10px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div align="center" style="font-family: monospace">
+            <h1>Wikipedia article shortest path finder</h1>
+
+            <form action="search" method="GET" style="align:center;">
+                <label>Source article:</label> 
+                <input type="text" class="source" size="80" name="from_url" value="https://en.wikipedia.org/wiki/Rodion"> 
+                <br>
+                
+                <label>Target article:</label>
+                <input type="text" class="target" size="80" name="to_url" value="https://en.wikipedia.org/wiki/Violet_(name)">   
+                <br>
+                
+                <button type="submit">Search!</button>
+            </form>
+            
+            <h2>How to use</h2>
+            <p align="justify" style="width:200px;">
+                Just copy the entire URL for source and target articles. The 
+                terminal articles <b>must be written in the same language.</b> 
+                The search time may be anything from a couple of seconds and 
+                30 seconds, after which the query will be canceled.
+            </p>
+            
+            <p align="justify" style="width:200px;">
+                By Rodion &quot;(code)rodde&quot; Efremov, 2016.08.09
+            </p>
+        </div>
+    </body>
+</html>
