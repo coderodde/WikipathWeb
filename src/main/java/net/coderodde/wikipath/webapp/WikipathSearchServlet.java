@@ -21,12 +21,16 @@ public class WikipathSearchServlet extends HttpServlet {
         
         final String sourceUrlText = request.getParameter("from_url").trim();
         final String targetUrlText = request.getParameter("to_url")  .trim();
-
+        final String threadsText   = request.getParameter("threads");
+        
+        int requestedNumberOfThreads = Integer.parseInt(threadsText);
+        
         final String sourceTitle = sourceUrlText
                 .substring(sourceUrlText.lastIndexOf('/') + 1);
         
         final String targetTitle = targetUrlText.
                 substring(targetUrlText.lastIndexOf('/') + 1);
+        
         
         // When deployed to Heroku, prints to the application log file.
         System.out.println("[WIKIPATH_QUERY] " + sourceUrlText + 
@@ -34,7 +38,8 @@ public class WikipathSearchServlet extends HttpServlet {
         
         try {
             final AbstractDelayedGraphPathFinder<String> finder =
-                    new ThreadPoolBidirectionalPathFinder<>(64);
+                    new ThreadPoolBidirectionalPathFinder<>(
+                            requestedNumberOfThreads);
 
             final AbstractWikipediaGraphNodeExpander forwardSearchExpander = 
                     new ForwardWikipediaGraphNodeExpander(sourceUrlText);
@@ -76,8 +81,10 @@ public class WikipathSearchServlet extends HttpServlet {
             }
             
             request.setAttribute("solution", path);
-        } catch (final Exception ex) {
+            request.setAttribute("threads", requestedNumberOfThreads);
+        } catch (final IOException | ServletException ex) {
             request.setAttribute("error_msg", "ERROR: " + ex.getMessage());
+            request.setAttribute("threads", requestedNumberOfThreads);
         }
         
         request.getRequestDispatcher("show.jsp").forward(request, response);

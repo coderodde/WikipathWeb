@@ -21,6 +21,9 @@
         <div>
             ${requestScope.result_msg}
         </div>
+        <div>
+            Threads: ${requestScope.threads}
+        </div>
         <button onclick="window.history.back();">Go back</button>
     </body>
 </html>
